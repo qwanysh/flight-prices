@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from app import api
 from app.handlers import connect_to_db, update_flights
+from app.routers import api
 
 app = FastAPI()
 app.include_router(api.router, prefix='/flights')

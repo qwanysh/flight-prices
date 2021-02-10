@@ -6,10 +6,6 @@ import httpx
 from app.models import Route, Flight
 
 
-def sort_flights_by_price(flights):
-    return sorted(flights, key=lambda flight: flight['price'])
-
-
 def get_date_to(date_from):
     DAYS_IN_MONTH = 31
 

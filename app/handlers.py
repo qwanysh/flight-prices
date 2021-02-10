@@ -1,12 +1,12 @@
 import config
-from app.models import Route, Flight
+from app.models import Flight, Route
+
 from app.utils.flights_checker import FlightsChecker
-from db import db
+from app.db import db
 
 
 async def update_flights():
-    checker = FlightsChecker(config.ROUTES_LIST)
-    await checker.run()
+    await FlightsChecker(config.ROUTES_LIST).run()
 
 
 def connect_to_db():

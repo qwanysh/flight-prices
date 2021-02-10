@@ -6,5 +6,5 @@ from app.routers import api
 app = FastAPI()
 app.include_router(api.router, prefix='/flights')
 
-app.add_event_handler('startup', update_flights)
 app.add_event_handler('startup', connect_to_db)
+app.add_event_handler('startup', update_flights)

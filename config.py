@@ -1,10 +1,9 @@
 ROUTES_LIST = (
-    ('ALA', 'TSE'),
-    # ('TSE', 'ALA'),
-    # ('ALA', 'MOW'), ('MOW', 'ALA'),
-    # ('ALA', 'CIT'), ('CIT', 'ALA'),
-    # ('TSE', 'MOW'), ('MOW', 'TSE'),
-    # ('TSE', 'LED'), ('LED', 'TSE'),
+    ('ALA', 'TSE'), ('TSE', 'ALA'),
+    ('ALA', 'MOW'), ('MOW', 'ALA'),
+    ('ALA', 'CIT'), ('CIT', 'ALA'),
+    ('TSE', 'MOW'), ('MOW', 'TSE'),
+    ('TSE', 'LED'), ('LED', 'TSE'),
 )
 
 CELERY_BROKER = 'redis://localhost:6379/0'

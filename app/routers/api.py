@@ -1,12 +1,10 @@
 from fastapi import APIRouter
-from playhouse.shortcuts import model_to_dict
 
-from app.models import Flight
+from app.utils.helpers import get_grouped_routes_with_price
 
 router = APIRouter()
 
 
 @router.get('/')
 def get_flights():
-    flights = Flight.select()
-    return [model_to_dict(flight) for flight in flights]
+    return get_grouped_routes_with_price()

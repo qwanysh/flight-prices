@@ -1,7 +1,9 @@
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
 from urllib.parse import urlencode
 
 import httpx
+from peewee import fn
+from playhouse.shortcuts import model_to_dict
 
 from app.models import Route, Flight
 
@@ -51,7 +53,7 @@ def get_check_url(booking_token):
 async def fetch_flights_for_route(route):
     url = get_flight_url(route)
 
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=None) as client:
         response = await client.get(url)
 
         flights = [{
@@ -77,3 +79,18 @@ def save_flight(flight):
     fly_from, fly_to = flight['route']
     route, is_created = Route.get_or_create(fly_from=fly_from, fly_to=fly_to)
     Flight.create(route=route, price=flight['price'])
+
+
+def get_grouped_routes_with_price():
+    day_ago = datetime.now() - timedelta(hours=24)
+    routes = Route.select(
+        Route.id,
+        Route.fly_to,
+        Route.fly_from,
+        fn.MIN(Flight.price).alias('lowest_price'),
+    ).where(Flight.created_at > day_ago).join(Flight).group_by(Route)
+
+    return [
+        model_to_dict(route, extra_attrs=['lowest_price'])
+        for route in routes
+    ]

@@ -6,7 +6,7 @@ ROUTES_LIST = (
     ('TSE', 'LED'), ('LED', 'TSE'),
 )
 
-CELERY_BROKER = 'redis://localhost:6379/0'
-CELERY_BACKEND = 'redis://localhost:6379/1'
+CELERY_BROKER = 'redis://redis:6379'
+CELERY_BACKEND = 'redis://redis:6379'
 
 DATABASE_URL = 'database.db'
